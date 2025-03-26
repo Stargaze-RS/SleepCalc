@@ -3,94 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Tracker</title>
+    <title>Woodland Sleep Sanctuary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --soft-green: #2c5f2d;
+            --moss-green: #97bc62;
+            --sage-green: #779c55;
+            --light-sage: #b8e186;
+            --cream: #f0efe4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e6f3e6, #c1e1c1);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
             line-height: 1.6;
-            background-color: #f4f4f4;
+            color: var(--soft-green);
         }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+        .sleep-sanctuary {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
         }
-        h1 {
-            color: #333;
+
+        .header {
             text-align: center;
+            margin-bottom: 30px;
         }
-        #sleepResult {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
+
+        .header h1 {
+            color: var(--soft-green);
+            font-weight: 600;
         }
-        .input-group {
+
+        .sleep-log {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .day-input {
             display: flex;
             flex-direction: column;
-            margin-bottom: 10px;
         }
-        label {
+
+        .day-input label {
             margin-bottom: 5px;
+            color: var(--sage-green);
+            font-weight: 300;
         }
-        input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+
+        .day-input input {
+            padding: 10px;
+            border: 2px solid var(--light-sage);
+            border-radius: 10px;
+            background-color: #f9faf5;
+            transition: all 0.3s ease;
         }
-        button {
-            background-color: #4CAF50;
+
+        .day-input input:focus {
+            outline: none;
+            border-color: var(--moss-green);
+            box-shadow: 0 0 10px rgba(151, 188, 98, 0.2);
+        }
+
+        .track-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--soft-green);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            border-radius: 15px;
+            margin-top: 20px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
         }
-        button:hover {
-            background-color: #45a049;
+
+        .track-button:hover {
+            background: var(--moss-green);
+        }
+
+        #sleepResult {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-sage);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--soft-green);
+        }
+
+        /* Tree illustration decorations */
+        .tree-left, .tree-right {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><path d="M50 0 Q30 100, 50 200 Q70 100, 50 0Z" fill="%232c5f2d" opacity="0.3"/></svg>') no-repeat;
+            z-index: -1;
+        }
+
+        .tree-left {
+            left: 20px;
+            transform: rotate(-15deg);
+        }
+
+        .tree-right {
+            right: 20px;
+            transform: rotate(15deg);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sleep Tracker</h1>
-        <div class="input-group">
-            <label for="monday">Monday Sleep Hours:</label>
-            <input type="number" id="monday" value="15" min="0" max="24">
+    <div class="tree-left"></div>
+    <div class="tree-right"></div>
+    <div class="sleep-sanctuary">
+        <div class="header">
+            <h1>🌿 Woodland Sleep Sanctuary 🌿</h1>
+            <p>Track your journey to restful nights</p>
         </div>
-        <div class="input-group">
-            <label for="tuesday">Tuesday Sleep Hours:</label>
-            <input type="number" id="tuesday" value="4" min="0" max="24">
+        <div class="sleep-log">
+            <div class="day-input">
+                <label for="monday">Monday</label>
+                <input type="number" id="monday" value="15" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="tuesday">Tuesday</label>
+                <input type="number" id="tuesday" value="4" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="wednesday">Wednesday</label>
+                <input type="number" id="wednesday" value="9" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="thursday">Thursday</label>
+                <input type="number" id="thursday" value="8" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="friday">Friday</label>
+                <input type="number" id="friday" value="8" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="saturday">Saturday</label>
+                <input type="number" id="saturday" value="6" min="0" max="24">
+            </div>
+            <div class="day-input">
+                <label for="sunday">Sunday</label>
+                <input type="number" id="sunday" value="55" min="0" max="24">
+            </div>
         </div>
-        <div class="input-group">
-            <label for="wednesday">Wednesday Sleep Hours:</label>
-            <input type="number" id="wednesday" value="9" min="0" max="24">
-        </div>
-        <div class="input-group">
-            <label for="thursday">Thursday Sleep Hours:</label>
-            <input type="number" id="thursday" value="8" min="0" max="24">
-        </div>
-        <div class="input-group">
-            <label for="friday">Friday Sleep Hours:</label>
-            <input type="number" id="friday" value="8" min="0" max="24">
-        </div>
-        <div class="input-group">
-            <label for="saturday">Saturday Sleep Hours:</label>
-            <input type="number" id="saturday" value="6" min="0" max="24">
-        </div>
-        <div class="input-group">
-            <label for="sunday">Sunday Sleep Hours:</label>
-            <input type="number" id="sunday" value="55" min="0" max="24">
-        </div>
-        
-        <button onclick="calculateSleepDebt()">Calculate Sleep Debt</button>
-        
+        <button class="track-button" onclick="calculateSleepDebt()">Nurture Your Sleep</button>
         <div id="sleepResult"></div>
     </div>
 
@@ -133,21 +210,17 @@
             const idealSleepHours = getIdealSleepHours();
             
             if(actualSleepHours === idealSleepHours) {
-                resultDiv.textContent = "You've got the perfect amount of sleep!";
-                resultDiv.style.backgroundColor = '#d4edda';
-                resultDiv.style.color = '#155724';
+                resultDiv.innerHTML = `🌟 Perfect Harmony! <br>You've cultivated ideal rest this week.`;
+                resultDiv.style.backgroundColor = '#b8e186';
             } else if (actualSleepHours > idealSleepHours) {
-                resultDiv.textContent = `You got ${actualSleepHours - idealSleepHours} more hours of sleep this week.`;
-                resultDiv.style.backgroundColor = '#d1ecf1';
-                resultDiv.style.color = '#0c5460';
+                resultDiv.innerHTML = `💤 Gentle Overflow <br>You've slept ${actualSleepHours - idealSleepHours} hours more than your ideal this week.`;
+                resultDiv.style.backgroundColor = '#d0e1c3';
             } else if (actualSleepHours < idealSleepHours) {
-                resultDiv.textContent = `You need more sleep because you had ${idealSleepHours - actualSleepHours} hours less sleep this week.`;
-                resultDiv.style.backgroundColor = '#fff3cd';
-                resultDiv.style.color = '#856404';
+                resultDiv.innerHTML = `🍃 Tender Reminder <br>Nurture yourself with ${idealSleepHours - actualSleepHours} more hours of rest this week.`;
+                resultDiv.style.backgroundColor = '#e6f3e6';
             } else {
-                resultDiv.textContent = 'Error! Something went wrong.';
-                resultDiv.style.backgroundColor = '#f8d7da';
-                resultDiv.style.color = '#721c24';
+                resultDiv.innerHTML = '❓ Mystic Moments <br>Something unexpected occurred in your sleep journey.';
+                resultDiv.style.backgroundColor = '#f0efe4';
             }
         };
 
