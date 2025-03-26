@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        #sleepResult {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sleep Tracker</h1>
+        <div class="input-group">
+            <label for="monday">Monday Sleep Hours:</label>
+            <input type="number" id="monday" value="15" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="tuesday">Tuesday Sleep Hours:</label>
+            <input type="number" id="tuesday" value="4" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="wednesday">Wednesday Sleep Hours:</label>
+            <input type="number" id="wednesday" value="9" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="thursday">Thursday Sleep Hours:</label>
+            <input type="number" id="thursday" value="8" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="friday">Friday Sleep Hours:</label>
+            <input type="number" id="friday" value="8" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="saturday">Saturday Sleep Hours:</label>
+            <input type="number" id="saturday" value="6" min="0" max="24">
+        </div>
+        <div class="input-group">
+            <label for="sunday">Sunday Sleep Hours:</label>
+            <input type="number" id="sunday" value="55" min="0" max="24">
+        </div>
+        
+        <button onclick="calculateSleepDebt()">Calculate Sleep Debt</button>
+        
+        <div id="sleepResult"></div>
+    </div>
+
+    <script>
+        const getSleepHours = day => {
+            switch(day) {
+                case 'Monday':
+                    return Number(document.getElementById('monday').value);
+                case 'Tuesday':
+                    return Number(document.getElementById('tuesday').value);
+                case 'Wednesday':
+                    return Number(document.getElementById('wednesday').value);
+                case 'Thursday':
+                    return Number(document.getElementById('thursday').value);
+                case 'Friday':
+                    return Number(document.getElementById('friday').value);
+                case 'Saturday':
+                    return Number(document.getElementById('saturday').value);
+                case 'Sunday':
+                    return Number(document.getElementById('sunday').value);
+                default:
+                    return 'Error';
+            }
+        };
+
+        const getActualSleepHours = () => {
+            return getSleepHours('Monday') + getSleepHours('Tuesday') + getSleepHours('Wednesday') + 
+                   getSleepHours('Thursday') + getSleepHours('Friday') + getSleepHours('Saturday') + 
+                   getSleepHours('Sunday');
+        };
+
+        const getIdealSleepHours = () => {
+            let idealHours = 8;
+            return idealHours * 7;
+        };
+
+        const calculateSleepDebt = () => {
+            const resultDiv = document.getElementById('sleepResult');
+            const actualSleepHours = getActualSleepHours();
+            const idealSleepHours = getIdealSleepHours();
+            
+            if(actualSleepHours === idealSleepHours) {
+                resultDiv.textContent = "You've got the perfect amount of sleep!";
+                resultDiv.style.backgroundColor = '#d4edda';
+                resultDiv.style.color = '#155724';
+            } else if (actualSleepHours > idealSleepHours) {
+                resultDiv.textContent = `You got ${actualSleepHours - idealSleepHours} more hours of sleep this week.`;
+                resultDiv.style.backgroundColor = '#d1ecf1';
+                resultDiv.style.color = '#0c5460';
+            } else if (actualSleepHours < idealSleepHours) {
+                resultDiv.textContent = `You need more sleep because you had ${idealSleepHours - actualSleepHours} hours less sleep this week.`;
+                resultDiv.style.backgroundColor = '#fff3cd';
+                resultDiv.style.color = '#856404';
+            } else {
+                resultDiv.textContent = 'Error! Something went wrong.';
+                resultDiv.style.backgroundColor = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        };
+
+        // Calculate sleep debt on page load
+        calculateSleepDebt();
+    </script>
+</body>
+</html>
